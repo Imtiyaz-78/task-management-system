@@ -1,33 +1,13 @@
-/* @import "tailwindcss"; */
+@import "tailwindcss";
 
 /* 1. Import Fonts */
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
 @import "tailwindcss";
 
 * {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-    font-family: "Noto Sans", sans-serif;
     border-color: hsl(var(--border));
-}
 
-body {
-    font-family: "Open Sans", sans-serif;
 }
-
-p,
-h1,
-h2,
-h3,
-h4,
-h5,
-h6,
-span {
-    margin: 0;
-    padding: 0;
-}
-
 
 
 
