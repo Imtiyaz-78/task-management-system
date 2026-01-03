@@ -26,8 +26,8 @@ export const routes: Routes = [
   },
 
   // Fallback
-  {
-    path: '**',
-    redirectTo: 'auth/login',
-  },
+  // {
+  //   path: '**',
+  //   redirectTo: 'auth/login',
+  // },
 ];

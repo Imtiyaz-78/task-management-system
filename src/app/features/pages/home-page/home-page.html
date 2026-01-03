@@ -1,1 +1,11 @@
-<p>home-page works!</p>
+<div class="min-h-screen bg-background flex w-full">
+    <app-sidebar [isCollapsed]="isCollapsed()" (onToggle)="toggleSidebar()" [isMobileOpen]="isMobileOpen()"
+        (onMobileToggle)="toggleMobile()">
+    </app-sidebar>
+
+    <main [class]="getMainClasses()">
+        <div class="p-6 lg:p-8 pt-16 lg:pt-8">
+            <router-outlet></router-outlet>
+        </div>
+    </main>
+</div>

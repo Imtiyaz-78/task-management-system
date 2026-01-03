@@ -1,0 +1,83 @@
+@if (isMobileOpen) {
+<div class="fixed inset-0 bg-background/80 backdrop-blur-sm z-40 lg:hidden" (click)="onMobileToggle.emit()"></div>
+}
+
+<button
+    class="fixed top-4 left-4 z-50 lg:hidden flex h-10 w-10 items-center justify-center rounded-md hover:bg-accent transition-colors"
+    (click)="onMobileToggle.emit()">
+    <lucide-icon [name]="isMobileOpen ? X : Menu" class="h-5 w-5"></lucide-icon>
+</button>
+
+<aside
+    class="fixed top-0 left-0 h-screen bg-sidebar z-40 transition-all duration-300 border-r border-sidebar-border w-64 -translate-x-full lg:translate-x-0"
+    [class]="cn(
+    'fixed top-0 left-0 h-screen bg-sidebar z-40 transition-all duration-300 border-r border-sidebar-border',
+    isCollapsed ? 'w-[72px]' : 'w-64',
+    isMobileOpen ? 'translate-x-0' : '-translate-x-full lg:translate-x-0'
+  )">
+    <div class="flex flex-col h-full">
+        <div class="p-4 border-b border-sidebar-border">
+            <div class="flex items-center gap-3">
+                <div
+                    class="flex h-10 w-10 items-center justify-center rounded-lg bg-sidebar-primary text-sidebar-primary-foreground font-bold text-lg shrink-0">
+                    TF
+                </div>
+                @if (!isCollapsed) {
+                <span class="text-xl font-bold text-sidebar-foreground animate-fade-in">TaskFlow</span>
+                }
+            </div>
+        </div>
+
+        <nav class="flex-1 p-4 space-y-2 overflow-y-auto">
+            @for (item of filteredNavItems; track item.path) {
+            <a [routerLink]="item.path" routerLinkActive="bg-sidebar-primary text-sidebar-primary-foreground"
+                #rla="routerLinkActive" [class]="cn(
+            'w-full flex items-center gap-3 px-3 py-2.5 rounded-lg transition-all duration-200 cursor-pointer',
+            !rla.isActive ? 'text-sidebar-foreground hover:bg-sidebar-accent hover:text-sidebar-accent-foreground' : ''
+          )" (click)="onMobileToggle.emit()">
+                <lucide-icon [name]="item.icon" class="h-5 w-5 shrink-0"></lucide-icon>
+                @if (!isCollapsed) {
+                <span class="font-medium whitespace-nowrap">{{ item.label }}</span>
+                }
+            </a>
+            }
+        </nav>
+
+        <div class="p-4 border-t border-sidebar-border space-y-3">
+            <button (click)="toggleTheme()"
+                class="w-full flex items-center gap-3 px-3 py-2.5 rounded-lg text-sidebar-foreground hover:bg-sidebar-accent transition-colors">
+                <lucide-icon [name]="theme === 'light' ? Moon : Sun" class="h-5 w-5 shrink-0"></lucide-icon>
+                @if (!isCollapsed) {
+                <span class="font-medium">Toggle Theme</span>
+                }
+            </button>
+
+            <div class="flex items-center gap-3 px-3 py-2">
+                <div
+                    class="h-9 w-9 rounded-full bg-sidebar-primary text-sidebar-primary-foreground flex items-center justify-center text-sm font-bold shrink-0">
+                    {{ getInitials(user.name) }}
+                </div>
+                @if (!isCollapsed) {
+                <div class="flex-1 min-w-0">
+                    <p class="text-sm font-medium text-sidebar-foreground truncate">{{ user.name }}</p>
+                    <p class="text-xs text-sidebar-muted capitalize">{{ user.role }}</p>
+                </div>
+                }
+            </div>
+
+            <button (click)="handleLogout()"
+                class="w-full flex items-center gap-3 px-3 py-2.5 rounded-lg text-sidebar-foreground hover:bg-destructive/20 hover:text-destructive transition-colors">
+                <lucide-icon [name]="LogOut" class="h-5 w-5 shrink-0"></lucide-icon>
+                @if (!isCollapsed) {
+                <span class="font-medium">Logout</span>
+                }
+            </button>
+        </div>
+    </div>
+
+    <button (click)="onToggle.emit()"
+        class="hidden lg:flex absolute -right-3 top-20 h-6 w-6 items-center justify-center rounded-full bg-background border shadow-sm hover:bg-accent transition-colors z-50">
+        <lucide-icon [name]="ChevronLeft" class="h-4 w-4 transition-transform"
+            [class.rotate-180]="isCollapsed"></lucide-icon>
+    </button>
+</aside>
