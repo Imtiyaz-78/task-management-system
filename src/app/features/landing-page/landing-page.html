@@ -1,0 +1,51 @@
+<div class="min-h-screen bg-background">
+    <header class="border-b">
+        <div class="container mx-auto px-4 py-4 flex items-center justify-between">
+            <div class="flex items-center gap-2">
+                <div
+                    class="h-9 w-9 rounded-lg bg-primary flex items-center justify-center text-primary-foreground font-bold">
+                    TF
+                </div>
+                <span class="text-xl font-bold">TaskFlow</span>
+            </div>
+
+            <button routerLink="/auth"
+                class="inline-flex items-center justify-center rounded-md bg-primary px-4 py-2 text-sm font-medium text-primary-foreground shadow hover:bg-primary/90">
+                Sign In
+            </button>
+        </div>
+    </header>
+
+    <main>
+        <section class="py-20 px-4">
+            <div class="container mx-auto text-center max-w-3xl">
+                <h1 class="text-4xl md:text-5xl font-bold mb-6 animate-fade-in">
+                    Enterprise Task Management Made Simple
+                </h1>
+                <p class="text-xl text-muted-foreground mb-8 animate-fade-in">
+                    Streamline workflows, collaborate seamlessly, and deliver projects on time with role-based access
+                    control.
+                </p>
+                <a routerLink="/auth"
+                    class="inline-flex items-center justify-center rounded-md bg-primary px-8 py-3 text-lg font-medium text-primary-foreground shadow hover:bg-primary/90 animate-fade-in">
+                    Get Started
+                    <lucide-icon [name]="ArrowRight" class="ml-2 h-5 w-5"></lucide-icon>
+                </a>
+            </div>
+        </section>
+
+        <section class="py-16 px-4 bg-muted/30">
+            <div class="container mx-auto">
+                <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
+                    @for (f of features; track $index) {
+                    <div class="p-6 rounded-xl bg-card border animate-fade-in">
+                        <lucide-icon [name]="f.icon" class="h-10 w-10 text-primary mb-4"></lucide-icon>
+                        <h3 class="font-semibold mb-2">{{ f.title }}</h3>
+                        <p class="text-sm text-muted-foreground">{{ f.desc }}</p>
+                    </div>
+                    }
+                </div>
+            </div>
+        </section>
+    </main>
+</div>
