@@ -1,0 +1,20 @@
+<div [class]="containerClasses">
+    <div class="flex items-start justify-between">
+        <div>
+            <p class="text-sm font-medium text-muted-foreground">{{ title }}</p>
+            <p class="mt-2 text-3xl font-bold tracking-tight">{{ value }}</p>
+
+            @if (trend) {
+            <p [class]="cn('mt-2 text-sm font-medium', trend.isPositive ? 'text-success' : 'text-destructive')">
+                {{ trend.isPositive ? '+' : '-' }}{{ trend.value }}% from last week
+            </p>
+            }
+        </div>
+
+        <div [class]="iconContainerClasses">
+            @if (icon) {
+            <lucide-icon [img]="icon" class="h-6 w-6"></lucide-icon>
+            }
+        </div>
+    </div>
+</div>
