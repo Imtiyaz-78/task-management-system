@@ -1,1 +1,105 @@
-<p>login-page works!</p>
+<div class="min-h-screen flex">
+    <div class="hidden lg:flex lg:w-1/2 bg-primary relative overflow-hidden">
+        <div class="absolute inset-0 bg-gradient-to-br from-primary via-primary to-primary/80"></div>
+        <div class="relative z-10 flex flex-col justify-center px-12 text-primary-foreground">
+            <div class="flex items-center gap-3 mb-8">
+                <div
+                    class="flex h-12 w-12 items-center justify-center rounded-xl bg-primary-foreground/20 font-bold text-xl">
+                    TF
+                </div>
+                <span class="text-3xl font-bold">TaskFlow</span>
+            </div>
+            <h1 class="text-4xl font-bold mb-4 leading-tight">
+                Enterprise Task Management Made Simple
+            </h1>
+            <p class="text-lg text-primary-foreground/80 mb-8">
+                Streamline your workflow, collaborate with your team, and deliver projects on time.
+            </p>
+            <div class="space-y-4">
+                @for (feature of features; track feature) {
+                <div class="flex items-center gap-3">
+                    <lucide-icon [name]="CheckSquare" class="h-5 w-5"></lucide-icon>
+                    <span>{{ feature }}</span>
+                </div>
+                }
+            </div>
+        </div>
+        <div class="absolute -bottom-20 -right-20 w-80 h-80 bg-primary-foreground/5 rounded-full"></div>
+        <div class="absolute -top-10 -right-10 w-40 h-40 bg-primary-foreground/5 rounded-full"></div>
+    </div>
+
+    <div class="flex-1 flex items-center justify-center p-8 bg-background">
+        <div class="w-full max-w-md animate-fade-in">
+
+            <div class="text-center mb-8">
+                <h2 class="text-2xl font-bold">{{ isLogin ? 'Welcome back' : 'Create account' }}</h2>
+                <p class="text-muted-foreground mt-2">
+                    {{ isLogin ? 'Enter your credentials to access your account' : 'Sign up to start managing your
+                    tasks' }}
+                </p>
+            </div>
+
+            <form [formGroup]="authForm" (ngSubmit)="handleSubmit()" class="space-y-5">
+                @if (!isLogin) {
+                <div class="space-y-2">
+                    <label class="text-sm font-medium leading-none" for="name">Full Name</label>
+                    <input id="name" type="text" formControlName="name" placeholder="John Doe"
+                        class="flex h-10 w-full rounded-md border border-input bg-background px-3 py-2 text-sm ring-offset-background file:border-0 file:bg-transparent file:text-sm file:font-medium placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50" />
+                </div>
+                }
+
+                <div class="space-y-2">
+                    <label class="text-sm font-medium leading-none" for="email">Email</label>
+                    <input id="email" type="email" formControlName="email" placeholder="you@example.com"
+                        class="flex h-10 w-full rounded-md border border-input bg-background px-3 py-2 text-sm ring-offset-background focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2" />
+                </div>
+
+                <div class="space-y-2">
+                    <label class="text-sm font-medium leading-none" for="password">Password</label>
+                    <div class="relative">
+                        <input id="password" [type]="showPassword ? 'text' : 'password'" formControlName="password"
+                            placeholder="••••••••"
+                            class="flex h-10 w-full rounded-md border border-input bg-background px-3 py-2 text-sm ring-offset-background focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2" />
+                        <button type="button" (click)="showPassword = !showPassword"
+                            class="absolute right-3 top-1/2 -translate-y-1/2 text-muted-foreground hover:text-foreground">
+                            <lucide-icon [name]="showPassword ? EyeOff : Eye" class="h-4 w-4"></lucide-icon>
+                        </button>
+                    </div>
+                </div>
+
+                <button type="submit" class="inline-flex items-center justify-center rounded-md bg-primary px-8 py-3 text-lg font-medium w-full
+            text-primary-foreground shadow hover:bg-primary/90 animate-fade-in"
+                    [disabled]="isLoading || authForm.invalid">
+                    <lucide-icon *ngIf="isLoading" [name]="Loader2" class="mr-2 h-4 w-4 animate-spin">
+                    </lucide-icon>
+                    {{ isLogin ? 'Sign In' : 'Create Account' }}
+                </button>
+            </form>
+
+
+            <div class="mt-6 text-center">
+                <p class="text-sm text-muted-foreground">
+                    {{ isLogin ? "Don't have an account?" : 'Already have an account?' }}
+                    <button type="button" (click)="toggleMode()" class="text-primary font-medium hover:underline">
+                        {{ isLogin ? 'Sign up' : 'Sign in' }}
+                    </button>
+                </p>
+            </div>
+
+            @if (isLogin) {
+            <div class="mt-8 p-4 rounded-lg bg-muted/50 border">
+                <p class="text-sm text-muted-foreground mb-3 font-medium">Demo Accounts:</p>
+                <div class="space-y-2 text-xs text-muted-foreground">
+                    <p><strong>Admin:</strong> admin@taskflow.com / admin123</p>
+                    <p><strong>Manager:</strong> manager@taskflow.com / manager123</p>
+                    <p><strong>Employee:</strong> employee@taskflow.com / employee123</p>
+                </div>
+            </div>
+            }
+
+            <p class="mt-6 text-center text-xs text-muted-foreground">
+                <a routerLink="/" class="hover:underline">← Back to home</a>
+            </p>
+        </div>
+    </div>
+</div>
